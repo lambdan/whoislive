@@ -5,7 +5,7 @@ No need to visit your Twitch following page anymore
 # Installation
 
     sudo pip install colorama
-    wget https://raw.githubusercontent.com/lambdan/whoislive/whoislive.py
+    wget https://raw.githubusercontent.com/lambdan/whoislive/master/whoislive.py
     echo alias whoislive="python whoislive.py" > ~/.bash_profile
 
 Only tested on macOS
