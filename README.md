@@ -4,11 +4,11 @@ No need to visit your Twitch following page anymore
 
 # Installation
 
-    sudo pip install colorama
-    wget https://raw.githubusercontent.com/lambdan/whoislive/master/whoislive.py
-    echo alias whoislive="python whoislive.py" >> ~/.bash_profile
+- Install Colorama: `pip install colorama`
+- Download `whoislive.py`
+- Add an alias to your `~/.bash_profile`, that looks something like this: `alias whoislive="python /path/to/whoislive.py"`
 
-Only tested on macOS
+Only tested on macOS, Python 2.7
 
 # Re: Twitch Auth
 
