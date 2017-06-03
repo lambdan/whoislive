@@ -33,9 +33,9 @@ def streams(offset):
 
 	for stream in data['streams']:
 		#print stream
-		name = stream['channel']['name']
-		game = stream['game']
-		status = stream['channel']['status']
+		name = stream['channel']['name'].encode(sys.stdout.encoding, errors='replace')
+		game = stream['game'].encode(sys.stdout.encoding, errors='replace')
+		status = stream['channel']['status'].encode(sys.stdout.encoding, errors='replace')
 		url = stream['channel']['url']
 		viewers = str(stream['viewers'])
 		print (Fore.GREEN + name),
