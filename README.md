@@ -1,8 +1,9 @@
-No need to visit your Twitch following page anymore
+# whoislive 
+
+No need to visit your Twitch following page anymore.
+Useful for [streamlink](https://github.com/streamlink/streamlink) users.
 
 ![Regular version on macOS](http://i.imgur.com/Ysz5epa.png)
-
-![Noob version usage](https://lambdan.se/d/whoislive-usage.gif)
 
 # What Version Should I Use?
 
@@ -10,7 +11,7 @@ The regular version is the original one that outputs in color and is meant to be
 
 The _no-color_ version is the same as the regular version, except there is no color and its output format is changed to make it more legible without color. **Recommended for Windows Command Prompt users** who add the script to their path.
 
-The _noob_ version is the same as the _no-color_ version except it has a "Press any key to exit..." at the end. This is **recommended for beginners that use Windows** as you can just double click the `.py` file to run it.
+The _noob_ version is the same as the _no-color_ version except it has a "Press any key to exit..." at the end. This is **recommended for beginners that use Windows** as you can just double click the `.py` file to run it. See the bottom of this readme for a demo.
 
 All scripts use the same saved OAuth token, so you can use all versions at the same time.
 
@@ -49,3 +50,5 @@ It says I get access to your email, which I guess is true, but I haven't seen my
 (However the script runs client side so I don't see it anyway, and the `#access_token` is a hash so I don't see your oauth key in my web server logs either.)
 
 tl;dr: I won't know anything about you
+
+![Noob version usage](https://lambdan.se/d/whoislive-usage.gif)
