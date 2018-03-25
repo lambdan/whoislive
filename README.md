@@ -2,6 +2,8 @@ No need to visit your Twitch following page anymore
 
 ![Regular version on macOS](http://i.imgur.com/Ysz5epa.png)
 
+![Noob version usage](https://lambdan.se/d/whoislive-usage.gif)
+
 # What Version Should I Use?
 
 The regular version is the original one that outputs in color and is meant to be ran inside a Terminal that supports colors. It requires the _colorama_ package to be installed. **Recommended for macOS Terminal users** and possibly Linux users, and maybe Windows users who got a good terminal...
