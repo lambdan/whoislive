@@ -13,7 +13,11 @@ clientid = "qr27075xc6n85gn944oj70qf0glly4"  # please dont abuse
 def TwitchRequest(url):
     req = urllib2.Request(url)
     req.add_header('Client-ID', clientid)
-    response = urllib2.urlopen(req)
+    try:
+        response = urllib2.urlopen(req)
+    except urllib2.URLError as e:
+        print("Error contacting Twitch:", e, "\nMaybe your internet is down or Twitch is having problems?")
+        sys.exit(1)
     data = json.loads(response.read())
     return data
 
