@@ -19,8 +19,6 @@ No need to visit your Twitch following page anymore. Useful for [streamlink](htt
 
 # Usage
 
-- Run `whoislive.py` using Python 3: `python3 whoislive.py` or use your alias. 
-
-- The first time you run it will ask for a Twitch username (preferably yours so you get who you are following, but you can type someone elses name to pretend to be them and see who they're following)
-- Future runs will automatically show followed channels that are live for the username you previously specified
-- If you want to change Twitch username, remove the token file (currently located at `~/.whoislive2-token`) and run again
+- Run `whoislive.py` using Python 3: `python3 whoislive.py` or use your alias
+	- First run you will be asked to open a Twitch URL to authorize, and then you will be sent to a page that shows you a token code which you will copy/paste into _whoislive_, which will then be saved for future runs
+		- If you want to switch Twitch account or your token expires, remove the token file (currently `~/.whoislive2-token`) and then run again to create a new token
