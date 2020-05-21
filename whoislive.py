@@ -9,10 +9,13 @@ init() # init() is needed, otherwise we get red prompt after execution
 
 token_file = os.path.join(os.path.expanduser("~"), '.whoislive2-token')
 clientid = "qr27075xc6n85gn944oj70qf0glly4"  # please dont abuse
+redirect = 'http://lambdan.se/d/whoislive.html'
 
-def TwitchRequest(url):
+def TwitchRequest(url, oauth_token):
+    #print("TwitchRequest:", url)
     req = urllib2.Request(url)
     req.add_header('Client-ID', clientid)
+    req.add_header('Authorization', 'Bearer ' + oauth_token)
     try:
         response = urllib2.urlopen(req)
     except urllib2.URLError as e:
@@ -23,17 +26,22 @@ def TwitchRequest(url):
 
 # Get token and save it if there is none
 if not os.path.isfile(token_file):
-    input_username = input('Enter your Twtich.tv username (or someone elses if you wanna pretend to be them): ')
+    print("Please visit this URL to get a token: ")
+    print("https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=" + clientid + "&scope=user_read&redirect_uri=" + redirect + "&force_verify=true")
+    print("")
+    input_token = input('Paste token here: ')
 
-    print("Grabbing User ID...")
-    data = TwitchRequest('https://api.twitch.tv/helix/users?login=' + input_username.rstrip())
+    print("Testing...")
+    data = TwitchRequest('https://api.twitch.tv/helix/users', input_token.rstrip())
     if len(data['data']) == 1:
-        print("Username: " + data['data'][0]['login'])
-        print("Saving user id to " + token_file + "...")
+        print("Hello " + data['data'][0]['login'] + "!")
+        print("Saving to " + os.path.abspath(token_file) + "...\n\n")
         f = open(token_file, 'w')
         f.write("username:" + data['data'][0]['login'])
         f.write("\n")
         f.write("userid:" + data['data'][0]['id'])
+        f.write("\n")
+        f.write("oauth:" + input_token.rstrip())
         f.close()
     else:
         print('FAILED!')
@@ -51,11 +59,14 @@ if os.path.isfile(token_file):
     for l in lines:
         if l.split(":")[0] == 'userid':
             userid = l.split(":")[1].rstrip()
+        elif l.split(":")[0] == 'oauth':
+            token = l.split(":")[1].rstrip()
+
 
 # We got the user id, now lets show who's live
 if userid:
     # Grab followed streams
-    data = TwitchRequest('https://api.twitch.tv/helix/users/follows?from_id=' + userid + '&first=100')
+    data = TwitchRequest('https://api.twitch.tv/helix/users/follows?from_id=' + userid + '&first=100', token)
     
     # Check total amount of channels
     total = int(data['total'])
@@ -69,7 +80,7 @@ if userid:
     if total > 100: # we need pagination
         while len(followed_channels) < total:
             pagination_cursor = data['pagination']['cursor']
-            data = TwitchRequest('https://api.twitch.tv/helix/users/follows?from_id=' + userid + '&first=100&after=' + pagination_cursor)
+            data = TwitchRequest('https://api.twitch.tv/helix/users/follows?from_id=' + userid + '&first=100&after=' + pagination_cursor, token)
             for channel in data['data']:
                 followed_channels.append(channel['to_id']) # Add channel id to followed_channels
 
@@ -93,7 +104,7 @@ if userid:
     # Now call the urls and get who is actually live
     live_channels = []
     for url in urls_to_call:
-        data = TwitchRequest(url)
+        data = TwitchRequest(url, token)
         for channel in data['data']:
             live_channels.append({'user': channel['user_name'], 'title': channel['title'], 'viewers': channel['viewer_count']})
 
