@@ -2,7 +2,7 @@
 
 No need to visit your Twitch following page anymore. Useful for [streamlink](https://github.com/streamlink/streamlink) users.
 
-![Demo](https://lambdan.se/img/2020-05-22_00-50-06.gif)
+![Demo](https://lambdan.se/img/2020-05-22_01-02-03_c3938d85-5c7a-4310-bf80-fde4e005bdad.gif)
 
 # Installation
 
@@ -10,7 +10,7 @@ No installation. Just download and run `whoislive.py` with Python 3.
 
 I do require the [colorama](https://pypi.org/project/colorama/) package though, you can usually install that by just doing `pip3 install colorama`.
 
-## Optional
+## Optional Shortcut
 
 I recommend setting up an alias in your shell, so you can just type `wil` anywhere to run it. For example I have `alias wil='python3 ~/whoislive.py'` in my `.zshrc`.
 
