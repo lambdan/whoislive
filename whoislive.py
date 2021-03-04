@@ -116,6 +116,6 @@ if userid:
     # Output if there are live channels
     if len(live_channels) > 0:
         for channel in live_channels_sorted_by_viewers: # user, title, viewers
-            print (Fore.GREEN + channel['user'], Fore.YELLOW + channel['title'], Fore.RED + str(channel['viewers']))
+            print (Fore.GREEN + channel['display_name'], Fore.YELLOW + channel['title'], Fore.RED + str(channel['viewers']))
     else:
         print("No one you follow is live :(")
