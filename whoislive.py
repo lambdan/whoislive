@@ -106,7 +106,14 @@ if userid:
         data = TwitchRequest(url, token)
         #print(data)
         for channel in data['data']:
-            live_channels.append({'user': channel['user_login'], 'title': channel['title'], 'viewers': channel['viewer_count']})
+
+            if channel['user_name'].lower() == channel['user_login'].lower():
+                display_name = channel['user_name']
+            else:
+                # for kanji/asian usernames: also show the user_login
+                display_name = channel['user_name'] + " (" + channel['user_login'] + ")" 
+
+            live_channels.append({'user': channel['user_login'], 'display_name': display_name, 'title': channel['title'], 'viewers': channel['viewer_count']})
 
     #print ('Live channels:', len(live_channels))
 
@@ -116,6 +123,6 @@ if userid:
     # Output if there are live channels
     if len(live_channels) > 0:
         for channel in live_channels_sorted_by_viewers: # user, title, viewers
-            print (Fore.GREEN + channel['user'], Fore.YELLOW + channel['title'], Fore.RED + str(channel['viewers']))
+            print (Fore.GREEN + channel['display_name'], Fore.YELLOW + channel['title'], Fore.RED + str(channel['viewers']))
     else:
         print("No one you follow is live :(")
