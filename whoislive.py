@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os.path
 import json
@@ -105,8 +104,9 @@ if userid:
     live_channels = []
     for url in urls_to_call:
         data = TwitchRequest(url, token)
+        #print(data)
         for channel in data['data']:
-            live_channels.append({'user': channel['user_name'], 'title': channel['title'], 'viewers': channel['viewer_count']})
+            live_channels.append({'user': channel['user_login'], 'title': channel['title'], 'viewers': channel['viewer_count']})
 
     #print ('Live channels:', len(live_channels))
 
