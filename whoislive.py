@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
 import os.path
 import json
 import urllib.request as urllib2
 import sys
-from colorama import Fore, init
-init() # init() is needed, otherwise we get red prompt after execution
 
 token_file = os.path.join(os.path.expanduser("~"), '.whoislive2-token')
 clientid = "qr27075xc6n85gn944oj70qf0glly4"  # please dont abuse
@@ -113,7 +110,7 @@ if userid:
                 # for kanji/asian usernames: also show the user_login
                 display_name = channel['user_name'] + " (" + channel['user_login'] + ")" 
 
-            live_channels.append({'user': channel['user_login'], 'display_name': display_name, 'title': channel['title'], 'viewers': channel['viewer_count']})
+            live_channels.append({'user': channel['user_login'], 'display_name': display_name, 'game': channel['game_name'], 'title': channel['title'], 'viewers': channel['viewer_count']})
 
     #print ('Live channels:', len(live_channels))
 
@@ -123,6 +120,14 @@ if userid:
     # Output if there are live channels
     if len(live_channels) > 0:
         for channel in live_channels_sorted_by_viewers: # user, title, viewers
-            print (Fore.GREEN + channel['display_name'], Fore.YELLOW + channel['title'], Fore.RED + str(channel['viewers']))
+            pre_title = channel['display_name'] + " [" + str(channel['viewers']) + "] "
+
+            if len(channel['title']) > 70:
+                display_title = channel['title'][0:65] + "..."
+            else:
+                display_title = channel['title']
+
+            print(pre_title + display_title)
+
     else:
         print("No one you follow is live :(")
