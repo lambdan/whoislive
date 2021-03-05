@@ -121,9 +121,10 @@ if userid:
     if len(live_channels) > 0:
         for channel in live_channels_sorted_by_viewers: # user, title, viewers
             pre_title = channel['display_name'] + " [" + str(channel['viewers']) + "] "
+            title_length = 80 - len(pre_title) # max title length, 80 is common for terminals
 
-            if len(channel['title']) > 70:
-                display_title = channel['title'][0:65] + "..."
+            if len(channel['title']) > title_length:
+                display_title = channel['title'][0:title_length-3] + "..."
             else:
                 display_title = channel['title']
 
