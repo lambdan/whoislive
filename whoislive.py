@@ -17,7 +17,7 @@ def TwitchRequest(url, oauth_token):
     except urllib2.URLError as e:
         print("Error contacting Twitch:", e, "\nMaybe your internet is down or Twitch is having problems?")
         sys.exit(1)
-    data = json.loads(response.read())
+    data = json.loads(response.read().decode("utf8"))
     return data
 
 # Get token and save it if there is none
