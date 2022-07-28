@@ -16,6 +16,15 @@ def TwitchRequest(url, oauth_token):
         response = urllib2.urlopen(req)
     except urllib2.URLError as e:
         print("Error contacting Twitch:", e, "\nMaybe your internet is down or Twitch is having problems?")
+        if "401" in str(e):
+            print("Or maybe your token has expired. Would you like to remove it to re-authorize?")
+            answer = input("Delete old token (y/n)? ")
+            if "y" in answer.lower():
+                os.remove(token_file)
+                if not os.path.isfile(token_file):
+                    print("OK, token deleted. Next time you run me we'll re-authorize.")
+                else:
+                    print("Error deleting token. Remove it yourself:", token_file)
         sys.exit(1)
     data = json.loads(response.read().decode("utf8"))
     return data
@@ -127,7 +136,8 @@ if userid:
                 display_title = channel['title'][0:title_length-3] + "..."
             else:
                 display_title = channel['title']
-
+            
+            display_title = display_title.replace("\n","")
             print(pre_title + display_title)
 
     else:
