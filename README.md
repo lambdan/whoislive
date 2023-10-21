@@ -8,8 +8,6 @@ No need to visit your Twitch following page anymore. Useful for [streamlink](htt
 
 No installation. Just download and run `whoislive.py` with Python 3.
 
-Windows users can download the self-executable version from the [Releases](https://github.com/lambdan/whoislive/releases) page (note that this is very likely trigger a virus alert. You'll simply have to trust me or compile it yourself.)
-
 ## Optional Shortcut
 
 I recommend setting up an alias in your shell, so you can just type `wil` anywhere to run it. In my `.zshrc` I have this line: `alias wil='python3 ~/whoislive.py'`
