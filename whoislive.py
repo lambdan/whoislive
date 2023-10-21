@@ -32,7 +32,7 @@ def TwitchRequest(url, oauth_token):
 # Get token and save it if there is none
 if not os.path.isfile(token_file):
     print("Please visit this URL to get a token: ")
-    print("https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=" + clientid + "&scope=user_read&redirect_uri=" + redirect + "&force_verify=true")
+    print("https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=" + clientid + "&scope=user%3Aread%3Afollows&redirect_uri=" + redirect + "&force_verify=true")
     print("")
     input_token = input('Paste token here: ')
 
@@ -71,7 +71,8 @@ if os.path.isfile(token_file):
 # We got the user id, now lets show who's live
 if userid:
     # Grab followed streams
-    data = TwitchRequest('https://api.twitch.tv/helix/users/follows?from_id=' + userid + '&first=100', token)
+    data = TwitchRequest('https://api.twitch.tv/helix/channels/followed?user_id=' + userid + '&first=100', token)
+    #print(data)
     
     # Check total amount of channels
     total = int(data['total'])
@@ -80,14 +81,14 @@ if userid:
     # Iterate follows
     followed_channels = []
     for channel in data['data']:
-        followed_channels.append(channel['to_id'])
+        followed_channels.append(channel['broadcaster_id'])
 
     if total > 100: # we need pagination
         while len(followed_channels) < total:
             pagination_cursor = data['pagination']['cursor']
-            data = TwitchRequest('https://api.twitch.tv/helix/users/follows?from_id=' + userid + '&first=100&after=' + pagination_cursor, token)
+            data = TwitchRequest('https://api.twitch.tv/helix/channels/followed?user_id=' + userid + '&first=100&after=' + pagination_cursor, token)
             for channel in data['data']:
-                followed_channels.append(channel['to_id']) # Add channel id to followed_channels
+                followed_channels.append(channel['broadcaster_id']) # Add channel id to followed_channels
 
     # Generate urls that we will later call to see who is live
     urls_to_call = []
